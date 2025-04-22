@@ -1,18 +1,39 @@
-import Link from "./components/Link";
-import Route from "./components/Route";
-import { BrowserRouter } from "./context/RouterContext";
+import { Route, Routes } from 'react-router-dom'
+import HomePage from './pages/HomePage'
+import SettingPage from './pages/settingPage'
+import Dashboard from './pages/Dashboard'
+import AuthLayout from './layouts/AuthLayout'
+import DashboardLayout from './layouts/DashboardLayout'
+import ProductsList from './components/ProductsList'
+import Product from './components/Product'
+import Error from './components/Error'
 
-function App() {
+const App = () => {
   return (
-    <BrowserRouter>
-      <nav>
-        <Link to="/">Home</Link> | <Link to="/about">About</Link>
-      </nav>
+    <Routes>
+      <Route index element={<HomePage />} />
+      <Route path="setting" element={<SettingPage />} />
 
-      <Route path="/" element={<h1>Home Page</h1>} />
-      <Route path="/about" element={<h1>About Page</h1>} />
-    </BrowserRouter>
-  );
+      <Route element={<AuthLayout />}>
+        <Route path="/login" element={<div>Login</div>} />
+        <Route path="/register" element={<div>Register</div>} />
+      </Route>
+
+      <Route path="/dashboard" element={<DashboardLayout />}>
+        <Route index element={<Dashboard />} />
+        <Route path="users" element={<div>Users</div>} />
+
+        <Route path="products">
+          <Route index element={<ProductsList />} />
+          <Route path=":productId" element={<Product />} />
+        </Route>
+
+      </Route>
+      <Route path=":lang?/catagories" element={<div>laguage</div>} />
+
+      <Route path="*" element={<Error />} />
+    </Routes>
+  )
 }
 
-export default App;
+export default App

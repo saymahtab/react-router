@@ -1,9 +1,8 @@
-import { useContext } from 'react'
-import { RouterContext } from '../context/RouterContext';
+import { useContext } from "react"
+import { RouterContext } from "../context/RouterContext"
 
 const Route = ({ path, element }) => {
-
-  const { currentPath } = useContext(RouterContext);
+  const { currentPath } = useContext(RouterContext)
 
   return currentPath === path ? element : null;
 }
